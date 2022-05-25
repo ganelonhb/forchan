@@ -1,5 +1,11 @@
 import argparse, random, os
 
+def is_posix():
+    if os.name == "posix":
+        return True
+
+    return False
+
 # Styles
 
 BOLD                =   "\e[1m"

@@ -1,3 +1,5 @@
+[![PyPI](https://img.shields.io/badge/PyPI-v1.0.1-blue.svg)](https://pypi.org/manage/project/forchan/) [![GitHub](https://img.shields.io/badge/GitHub-v1.0.1-purple.svg)](https://github.com/ganelonhb/forchan)
+
 # forchan
 
 In this house, we check are fortunes.

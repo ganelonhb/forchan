@@ -18,8 +18,9 @@ CLASSIFIERS = [
 ]
 
 setup(  name="forchan",
-        version="1.0.0",
+        version="1.0.1",
         description="Check your fortune as is tradition on [s4s].",
+        long_description_content_type="text/markdown",
         long_description=long_description,
         url="https://github.com/ganelonhb/forchan",
         author="ganelon",
