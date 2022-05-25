@@ -180,7 +180,11 @@ def main():
         fortune_text = f"{BOLD}{color}{YOUR_FORTUNE}{fortune_text}{REG}"
     else:
         fortune_text = f"{YOUR_FORTUNE}{fortune_text}"
-    os.system(f"echo -e \"{fortune_text}\"")
+
+    E = ""
+    if is_posix():
+        E = " -e"
+    os.system(f"echo{E} \"{fortune_text}\"")
 
 if __name__ == "__main__":
     main()

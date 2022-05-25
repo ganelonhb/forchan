@@ -18,7 +18,7 @@ CLASSIFIERS = [
 ]
 
 setup(  name="forchan",
-        version="1.0.1",
+        version="1.0.1a",
         description="Check your fortune as is tradition on [s4s].",
         long_description_content_type="text/markdown",
         long_description=long_description,
