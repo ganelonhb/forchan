@@ -1,11 +1,5 @@
 import argparse, random, os
 
-def is_posix():
-    if os.name == "posix":
-        return True
-
-    return False
-
 # Styles
 
 BOLD                =   "\e[1m"
@@ -181,10 +175,7 @@ def main():
     else:
         fortune_text = f"{YOUR_FORTUNE}{fortune_text}"
 
-    E = ""
-    if is_posix():
-        E = " -e"
-    os.system(f"echo{E} \"{fortune_text}\"")
+    os.system(f"echo \"{fortune_text}\"")
 
 if __name__ == "__main__":
     main()

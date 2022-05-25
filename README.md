@@ -1,4 +1,4 @@
-[![PyPI](https://img.shields.io/badge/PyPI-v1.0.2-blue.svg)](https://pypi.org/manage/project/forchan/) [![GitHub](https://img.shields.io/badge/GitHub-v1.0.2-purple.svg)](https://github.com/ganelonhb/forchan)
+[![PyPI](https://img.shields.io/badge/PyPI-v1.1.0-blue.svg)](https://pypi.org/manage/project/forchan/) [![GitHub](https://img.shields.io/badge/GitHub-v1.1.0-purple.svg)](https://github.com/ganelonhb/forchan)
 
 # forchan
 
