@@ -2,41 +2,41 @@ import argparse, random, os
 
 # Styles
 
-BOLD                =   "\e[1m"
-REG                 =   "\e[0m"
+BOLD                =   "\033[1m"
+REG                 =   "\033[0m"
 
 # Colors (Simple)
 
-C_RED               =   "\e[;31m"
-C_GREEN             =   "\e[;32m"
-C_YELLOW            =   "\e[;33m"
-C_BLUE              =   "\e[;34m"
-C_MAGENTA           =   "\e[;35m"
-C_CYAN              =   "\e[;36m"
-C_WHITE             =   "\e[;37m"
+C_RED               =   "\033[;31m"
+C_GREEN             =   "\033[;32m"
+C_YELLOW            =   "\033[;33m"
+C_BLUE              =   "\033[;34m"
+C_MAGENTA           =   "\033[;35m"
+C_CYAN              =   "\033[;36m"
+C_WHITE             =   "\033[;37m"
 
 # Colors (Advanced)
 
-C_REPLY_HAZY        =   "\e[38;2;245;28;106m"
-C_EXCELLENT_LUCK    =   "\e[38;2;253;77;50m"
-C_GOOD_LUCK         =   "\e[38;2;231;137;12m"
-C_AVERAGE_LUCK      =   "\e[38;2;186;194;0m"
-C_BAD_LUCK          =   "\e[38;2;127;236;17m"
-C_GOOD_NEWS         =   "\e[38;2;67;253;59m"
-C_AWARE_RAAN        =   "\e[38;2;22;241;116m"
-C_KITA_TORI         =   "\e[38;2;0;203;176m"
-C_HANDSOME_STRANGER =   "\e[38;2;8;147;225m"
-C_BETTER_NOT        =   "\e[38;2;42;86;251m"
-C_OUTLOOK_GOOD      =   "\e[38;2;96;35;248m"
-C_VERY_BAD          =   "\e[38;2;157;5;218m"
-C_GODLY_LUCK        =   "\e[38;2;211;2;167m"
-C_LE_EBIN           =   "\e[38;2;38;0;208m"
-C_GET_DICK          =   "\e[38;2;42;86;251m"
-C_AYY_LMAO          =   "\e[38;2;233;65;227m"
-C_BANNED            =   "\e[38;2;255;0;0m"
-C_GET_SHREKT        =   "\e[38;2;104;146;58m"
-C_THE_GAME          =   "\e[38;2;140;140;140m"
-C_SENPAI_BAKA       =   "\e[38;2;136;28;202m"
+C_REPLY_HAZY        =   "\033[38;2;245;28;106m"
+C_EXCELLENT_LUCK    =   "\033[38;2;253;77;50m"
+C_GOOD_LUCK         =   "\033[38;2;231;137;12m"
+C_AVERAGE_LUCK      =   "\033[38;2;186;194;0m"
+C_BAD_LUCK          =   "\033[38;2;127;236;17m"
+C_GOOD_NEWS         =   "\033[38;2;67;253;59m"
+C_AWARE_RAAN        =   "\033[38;2;22;241;116m"
+C_KITA_TORI         =   "\033[38;2;0;203;176m"
+C_HANDSOME_STRANGER =   "\033[38;2;8;147;225m"
+C_BETTER_NOT        =   "\033[38;2;42;86;251m"
+C_OUTLOOK_GOOD      =   "\033[38;2;96;35;248m"
+C_VERY_BAD          =   "\033[38;2;157;5;218m"
+C_GODLY_LUCK        =   "\033[38;2;211;2;167m"
+C_LE_EBIN           =   "\033[38;2;38;0;208m"
+C_GET_DICK          =   "\033[38;2;42;86;251m"
+C_AYY_LMAO          =   "\033[38;2;233;65;227m"
+C_BANNED            =   "\033[38;2;255;0;0m"
+C_GET_SHREKT        =   "\033[38;2;104;146;58m"
+C_THE_GAME          =   "\033[38;2;140;140;140m"
+C_SENPAI_BAKA       =   "\033[38;2;136;28;202m"
 
 # Fortunes
 
@@ -144,14 +144,14 @@ def main():
     random.seed()
     lucky_number = random.randint(0,len(FORCHANS) - 1)
 
-    if (SPOOF != None):
+    if (SPOOF is not None):
         fortune_text = SPOOF
     else:
         fortune_text = FORCHANS[lucky_number]
 
 
     if ADVANCED:
-        if (COLOR != None):
+        if (COLOR is not None):
             r,g,b = None, None, None
             try:
                 r,g,b = hex_to_rgb(COLOR)
@@ -162,8 +162,8 @@ def main():
                 print(f"Error: The given value {COLOR} contained characters that were not hexadecimal digits.")
                 exit(-1)
 
-            color = f"\e[38;2;{r};{g};{b}m"
-        elif (SPOOF != None):
+            color = f"\033[38;2;{r};{g};{b}m"
+        elif (SPOOF is not None):
             if (SPOOF in FORTUNES):
                 color = FORTUNES[SPOOF][COMPAT]
             else:
@@ -175,7 +175,8 @@ def main():
     else:
         fortune_text = f"{YOUR_FORTUNE}{fortune_text}"
 
-    os.system(f"echo \"{fortune_text}\"")
+    #os.system(f"echo \"{fortune_text}\"")
+    print(fortune_text)
 
 if __name__ == "__main__":
     main()
