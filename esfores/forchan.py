@@ -1,4 +1,6 @@
-import argparse, random, os
+import argparse
+import random
+import sys
 
 # Styles
 
@@ -107,64 +109,56 @@ FORTUNES = {
     SENPAI_BAKA         :   (C_SENPAI_BAKA, C_MAGENTA)
 }
 
-def hex_to_rgb(hex):
-    VALID_CHARS = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F']
 
-    if(len(hex) != 6):
-        raise RuntimeError(f"The Hexadecimal string {hex} was not formatted correctly.")
-    for ch in hex:
-        if (ch.upper() not in VALID_CHARS):
-            raise ValueError(f"The Value {ch} is not a hexadecimal number.")
+def hex_to_rgb(color: str) -> tuple[int, int, int]:
+    if len(color) != 6:
+        raise RuntimeError
 
+    return int(color[:2], 16), int(color[2:4], 16), int(color[4:6], 16)
 
-    R = str(hex[0] + hex[1])
-    G = str(hex[2] + hex[3])
-    B = str(hex[4] + hex[5])
-
-    return(int(R,16),int(G,16),int(B,16))
 
 def main():
-    parser = argparse.ArgumentParser(prog="forchan", description="Check you're fortune esfores style :^)")
+    parser = argparse.ArgumentParser(prog="forchan",
+                                     description="Check you're fortune esfores style :^)")
 
-    parser.add_argument("--compat_level", "-c", choices= ['0','1','2'], default='2', help="the level of terminal compatability for color output from lowest to highest")
-    parser.add_argument("--spoof", "-s", default=None, help="spoof your own fortune text")
-    parser.add_argument("--color", "-x", default=None, help="override your own hex value for fortune color output")
+    parser.add_argument("--compat_level", "-c", choices=['0', '1', '2'], default='2',
+                        help="the level of terminal compatability "
+                             "for color output from lowest to highest")
+    parser.add_argument("--spoof", "-s", default=None,
+                        help="spoof your own fortune text")
+    parser.add_argument("--color", "-x", default=None,
+                        help="override your own hex value for fortune color output")
 
     args = parser.parse_args()
 
-    COMPAT  = args.compat_level
-    SPOOF   = args.spoof
-    COLOR   = args.color
-    ADVANCED = True if args.compat_level >= '1' else False
-    COMPAT  = 0 if args.compat_level == '2' else 1
-
-    fortune_text = None
-    color = None
+    SPOOF = args.spoof
+    COLOR = args.color
+    ADVANCED = args.compat_level >= '1'
+    COMPAT = 0 if args.compat_level == '2' else 1
 
     random.seed()
-    lucky_number = random.randint(0,len(FORCHANS) - 1)
+    lucky_number = random.randint(0, len(FORCHANS) - 1)
 
-    if (SPOOF is not None):
+    if SPOOF is not None:
         fortune_text = SPOOF
     else:
         fortune_text = FORCHANS[lucky_number]
 
-
     if ADVANCED:
-        if (COLOR is not None):
-            r,g,b = None, None, None
+        if COLOR is not None:
             try:
-                r,g,b = hex_to_rgb(COLOR)
-            except RuntimeError as r:
-                print(f"Error: The given value {COLOR} was not formatted correctly. Please input a six digit hexadecimal number.")
-                exit(-1)
-            except ValueError as v:
-                print(f"Error: The given value {COLOR} contained characters that were not hexadecimal digits.")
-                exit(-1)
-
-            color = f"\033[38;2;{r};{g};{b}m"
-        elif (SPOOF is not None):
-            if (SPOOF in FORTUNES):
+                r, g, b = hex_to_rgb(COLOR)
+                color = f"\033[38;2;{r};{g};{b}m"
+            except RuntimeError:
+                print(f"Error: The given value {COLOR} was not formatted correctly. "
+                      f"Please input a six digit hexadecimal number.")
+                sys.exit(-1)
+            except ValueError:
+                print(f"Error: The given value {COLOR} contained characters "
+                      f"that were not hexadecimal digits.")
+                sys.exit(-1)
+        elif SPOOF is not None:
+            if SPOOF in FORTUNES:
                 color = FORTUNES[SPOOF][COMPAT]
             else:
                 color = FORTUNES[FORCHANS[lucky_number]][COMPAT]
@@ -175,8 +169,8 @@ def main():
     else:
         fortune_text = f"{YOUR_FORTUNE}{fortune_text}"
 
-    #os.system(f"echo \"{fortune_text}\"")
     print(fortune_text)
+
 
 if __name__ == "__main__":
     main()
