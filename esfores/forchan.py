@@ -1,6 +1,6 @@
 import argparse
 import random
-import sys
+import os
 
 # Styles
 
@@ -48,8 +48,8 @@ GOOD_LUCK           =   "Good Luck"
 AVERAGE_LUCK        =   "Average Luck"
 BAD_LUCK            =   "Bad Luck"
 GOOD_NEWS           =   "Good news will come to you by mail"
-AWARE_RAAN          =   "（　´_ゝ\\`）ﾌｰﾝ"
-KITA_TORI           =   "ｷﾀ━━━━━━(ﾟ∀ﾟ)━━━━━━ \\!\\!\\!\\!"
+AWARE_RAAN          =   "（　´_ゝ`）ﾌｰﾝ"
+KITA_TORI           =   "ｷﾀ━━━━━━(ﾟ∀ﾟ)━━━━━━ !!!!"
 HANDSOME_STRANGER   =   "You will meet a dark handsome stranger"
 BETTER_NOT          =   "Better not tell you now"
 OUTLOOK_GOOD        =   "Outlook good"
@@ -121,7 +121,7 @@ def main():
     parser = argparse.ArgumentParser(prog="forchan",
                                      description="Check you're fortune esfores style :^)")
 
-    parser.add_argument("--compat_level", "-c", choices=['0', '1', '2'], default='2',
+    parser.add_argument("--compat_level", "-c", choices=['0', '1', '2', 'cow'], default='2',
                         help="the level of terminal compatability "
                              "for color output from lowest to highest")
     parser.add_argument("--spoof", "-s", default=None,
@@ -133,16 +133,13 @@ def main():
 
     SPOOF = args.spoof
     COLOR = args.color
-    ADVANCED = args.compat_level >= '1'
+    ADVANCED = args.compat_level >= '1' or args.compat_level == 'cow'
+    COWMODE = args.compat_level == 'cow'
     COMPAT = 0 if args.compat_level == '2' else 1
 
     random.seed()
     lucky_number = random.randint(0, len(FORCHANS) - 1)
-
-    if SPOOF is not None:
-        fortune_text = SPOOF
-    else:
-        fortune_text = FORCHANS[lucky_number]
+    fortune_text = SPOOF if SPOOF is not None else FORCHANS[lucky_number]
 
     if ADVANCED:
         if COLOR is not None:
@@ -165,7 +162,16 @@ def main():
         else:
             color = FORTUNES[FORCHANS[lucky_number]][COMPAT]
 
-        fortune_text = f"{BOLD}{color}{YOUR_FORTUNE}{fortune_text}{REG}"
+        if COWMODE:
+            temp_text = fortune_text.split(' ')
+            temp_color = [f"{BOLD}{color}{YOUR_FORTUNE}{REG}"]
+            for word in temp_text:
+                temp_color.append(f"{BOLD}{color}{word}{REG}")
+            
+            fortune_text = ' '.join(temp_color)
+        else:
+            fortune_text = f"{BOLD}{color}{YOUR_FORTUNE}{fortune_text}{REG}"
+        
     else:
         fortune_text = f"{YOUR_FORTUNE}{fortune_text}"
 
