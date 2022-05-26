@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# For iToddlers
+.DS_Store
+
+# PyCharm
+.idea
